@@ -40,7 +40,7 @@ function Apibook() {
     { lable: "Love", value: "romance" },
     { lable: "History", value: "history" },
   ];
-  const limit = 10;
+  const limit = 15;
   useEffect(() => {
     const response = async () =>
       // selectedCategory: string,
@@ -69,53 +69,7 @@ function Apibook() {
   const filteredBooks = data
     .filter((book) => book.cover_i)
     .filter((book) => book.title.toLowerCase().includes(search.toLowerCase()));
-  // .filter((book) => {
-  //   if (category === "All") return true;
-  //   const subjects = book.subject ?? [];
-  //   const lowerSubject = subjects.map((subject) => subject.toLowerCase());
 
-  //   switch (category) {
-  //     case "psychology":
-  //       return lowerSubject.some((subject) => subject.includes("psychology"));
-  //     case "Horror":
-  //       return lowerSubject.some((subject) => subject.includes("Horror"));
-  //     case "Fiction":
-  //       return lowerSubject.some((subject) => subject.includes("Fiction"));
-  //     case "Fantasy":
-  //       return lowerSubject.some((subject) => subject.includes("Fantasy"));
-  //     case "Love":
-  //       return lowerSubject.some((subject) => subject.includes("Love"));
-  //     case "History":
-  //       return lowerSubject.some((subject) => subject.includes("History"));
-  //     default:
-  //       return true;
-  //   }
-  // });
-
-  // {
-  //   categories.map((item) => {
-  //     return (
-  //       <button
-  //         key={item.value}
-  //         onClick={() => setCategory(item.value)}
-  //         className="btn btn-primary"
-  //       >
-  //         {item.lable}
-  //       </button>
-  //     );
-  //   });
-  // }
-  // {
-  //   categories.map((item) => (
-  //     <button
-  //       key={item.value}
-  //       onClick={() => setCategory(item.value)}
-  //       className="btn btn-primary"
-  //     >
-  //       {item.lable}
-  //     </button>
-  //   ));
-  // }
   return (
     <section className="pt-30">
       <div>
@@ -137,7 +91,10 @@ function Apibook() {
                 >
                   <button
                     key={item.value}
-                    onClick={() => setCategory(item.value)}
+                    onClick={() => {
+                      setCategory(item.value);
+                      setCurrentPage(1);
+                    }}
                     className="btn btn-primary"
                   >
                     {item.lable}
@@ -234,7 +191,7 @@ function Apibook() {
             <Link
               key={book.key}
               className="flex justify-center items-center flex-col pt-20 gap-5 text-center"
-              href={`books/${book.key.split("/").pop()}`}
+              href={`/books/${book.key.split("/").pop()}`}
             >
               <p className="w-60 line-clamp-1"> {book.title}</p>
               <img
