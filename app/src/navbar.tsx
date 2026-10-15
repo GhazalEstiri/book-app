@@ -1,28 +1,21 @@
+import { ShoppingCart, Heart, User } from "lucide-react";
 function Navbar() {
   return (
-    <div className="navbar bg-[#e8e8e893] shadow-sm fixed ">
-      <div className="flex-1">
+    <div className="navbar bg-[#e8e8e893] shadow-sm fixed flex justify-between pr-20 pl-20">
+      <div className="flex flex-row justify-center items-center">
+        <img src="book.png" alt="" width="50px" height="50px" />
         <a className="btn btn-ghost text-xl">Novella</a>
       </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1 gap-5">
-          <li className="bg-[#6542B5] rounded-xl text-white">
-            <a>Link</a>
-          </li>
-          <li>
-            <details>
-              <summary  className="bg-[#6542B5] rounded-xl text-white">Parent</summary>
-              <ul className="rounded-t-none p-2 bg-[#6542B5] rounded-xl text-white">
-                <li>
-                  <a>Link 1</a>
-                </li>
-                <li>
-                  <a>Link 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-        </ul>
+      <div className="flex flex-row gap-5">
+        <p>
+          <ShoppingCart />
+        </p>
+        <p>
+          <Heart />
+        </p>
+        <p>
+          <User />
+        </p>
       </div>
     </div>
   );

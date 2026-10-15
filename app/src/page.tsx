@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 // import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-// import Image from "next/image";
+// import Image from "next/image"
+import { Search } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -71,18 +72,40 @@ function Apibook() {
     .filter((book) => book.title.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <section className="pt-30">
-      <div>
-        <input
-          type="text"
-          placeholder="Search..."
-          className="input input-primary flex justify-center items-center mx-auto"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+    <section className="pt-30 pr-20 pl-20">
+      <div className="">
+        <section className="relative flex justify-center items-center mx-auto h-100 w-full flex-col gap-5">
+          <img
+            src="fairytale-scene-coming-out-book.jpg"
+            alt=""
+            className="absolute w-full h-full object-center object-cover blur-[4px] rounded-2xl inset-0"
+          />
+          <h1 className="flex justify-center items-center font-extrabold relative z-10 text-white text-3xl text-shadow-xl">
+            Discover Your Next Favorite Book
+          </h1>
+          <p className="flex justify-center items-center relative z-10 font-bold text-white w-100 text-center text-lg text-shadow-xl">
+            Step into a world of stories, imagination, and endless
+            possibilities. Explore fascinating books, discover new genres, and
+            find the perfect story for your next adventure.
+          </p>
+          <p className="flex justify-center items-center font-extrabold text-2xl relative z-10 text-white w-100 text-center text-shadow-xl">
+            Every book opens a new world.
+          </p>
+          <div className="relative z-10 max-w-550 border-2 border-[#1d436286] rounded-2xl  px-5 flex flex-row gap-6  bg-white justify-center items-center ">
+            <Search className="text-[#1d436286]" />
+
+            <input
+              type="text"
+              placeholder="What would you like to read today?"
+              className="input outline-none border-none flex justify-center items-center mx-auto relative z-10 "
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </section>
 
         <div>
-          <Carousel className="mx-auto w-full max-w-4xl">
+          <Carousel className="mx-auto w-full max-w-4xl mt-20">
             <CarouselContent>
               {categories.map((item) => (
                 <CarouselItem
@@ -95,7 +118,7 @@ function Apibook() {
                       setCategory(item.value);
                       setCurrentPage(1);
                     }}
-                    className="btn btn-primary"
+                    className={`w-20 border-2 shadow-2xs p-10 rounded-2xl  font-bold flex justify-center items-center mx-auto text-center ${category === item.value? "btn bg-[#233F49] text-white" : "btn btn-outline"}`}
                   >
                     {item.lable}
                   </button>
@@ -193,13 +216,13 @@ function Apibook() {
               className="flex justify-center items-center flex-col pt-20 gap-5 text-center"
               href={`/books/${book.key.split("/").pop()}`}
             >
-              <p className="w-60 line-clamp-1"> {book.title}</p>
               <img
                 src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
                 alt={book.title}
                 width={100}
                 height={100}
               />
+              <p className="w-60 line-clamp-1"> {book.title}</p>
             </Link>
           ))}
         </div>
