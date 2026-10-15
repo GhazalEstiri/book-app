@@ -105,11 +105,11 @@ function Apibook() {
         </section>
 
         <div>
-          <Carousel className="mx-auto w-full max-w-4xl mt-20">
+          <Carousel className="mx-auto w-full max-w-2xl mt-20">
             <CarouselContent>
               {categories.map((item) => (
                 <CarouselItem
-                  className="basis-1/3 md:basis-1/4 lg:basis-1/5"
+                  className="basis-1/2 md:basis-1/4 lg:basis-1/5"
                   key={item.value}
                 >
                   <button
@@ -132,8 +132,8 @@ function Apibook() {
         </div>
       </div>
       {loading ? (
-        <div className="grid grid-cols-4 gap-5 place-items-center">
-          <div className="flex w-52 flex-col gap-4">
+        <div className="grid grid-cols-4 gap-5 place-items-center mt-30">
+          <div className="flex w-52 flex-col gap-4 ">
             <div className="skeleton h-32 w-full"></div>
             <div className="skeleton h-4 w-28"></div>
             <div className="skeleton h-4 w-full"></div>
@@ -209,25 +209,25 @@ function Apibook() {
       ) : data.length === 0 ? (
         <p className="text-center">کتابی پیدا نشد.</p>
       ) : (
-        <div className="grid grid-cols-3  place-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 place-items-center">
           {filteredBooks.map((book) => (
             <Link
               key={book.key}
-              className="flex justify-center items-center flex-col pt-20 gap-5 text-center"
+              className="flex justify-center items-center flex-col w-70 h-90 gap-5 text-center border-2 p-7 rounded-2xl mt-20 mx-auto hover-3d shadow-sm transition-all duration-300 ease-out hover:-translate-y-3 hover:shadow-xl hover:border-[#233F49]/40"
               href={`/books/${book.key.split("/").pop()}`}
             >
               <img
                 src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
                 alt={book.title}
-                width={100}
-                height={100}
+                width="200x"
+                height="200px"
               />
-              <p className="w-60 line-clamp-1"> {book.title}</p>
+              <p className="w-40 line-clamp-1"> {book.title}</p>
             </Link>
           ))}
         </div>
       )}
-      <div className="join flex justify-center items-center mb-5 -mt-10 max-w-50 mx-auto relative bottom-0">
+      <div className="join flex justify-center items-center mb-5 max-w-50 mx-auto relative bottom-0 mt-20">
         {pageNumber.map((btn) => {
           return (
             <button
