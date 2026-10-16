@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Navbar from "@/app/src/navbar";
-import { BookOpenText, CalendarDays, LoaderCircle, Users } from "lucide-react";
+import { BookOpenText, CalendarDays, LoaderCircle, Users,User } from "lucide-react";
 type Props = {
   bookTitle: string;
 };
@@ -64,9 +64,17 @@ export default function DetailBook({ bookTitle }: Props) {
             height="220px"
             className="rounded-2xl"
           />
-          <div className="flex flex-col  gap-5">
-            <p className="font-extrabold text-6xl">{books?.title}</p>
-            <p className="font-bold text-3xl text-[#242222]">{author?.name}</p>
+          <div className="flex flex-col  gap-10">
+            <div className="bg-[#989898bc] w-fit px-4 py-2 rounded-2xl flex gap-2 flex-row">
+              <p>
+                <BookOpenText />
+              </p>
+              <p >
+                Book
+              </p>
+            </div>
+            <p className="font-extrabold text-6xl  flex flex-row items-center gap-2"> {books?.title}</p>
+            <p className="font-bold text-3xl text-[#242222] flex flex-row items-center gap-2"><User size={40} className="rounded-full bg-[#989898bc] p-2" /> {author?.name}</p>
           </div>
         </div>
         <div className="flex flex-1 flex-row mx-auto justify-center items-center w-full gap-5">
