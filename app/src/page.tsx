@@ -12,6 +12,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 function Apibook() {
   const [data, setData] = useState<Book[]>([]);
   const [search, setSearch] = useState("");
@@ -118,7 +127,7 @@ function Apibook() {
                       setCategory(item.value);
                       setCurrentPage(1);
                     }}
-                    className={`w-20 border-2 shadow-2xs p-10 rounded-2xl  font-bold flex justify-center items-center mx-auto text-center ${category === item.value? "btn bg-[#233F49] text-white" : "btn btn-outline"}`}
+                    className={`w-20 border-2 shadow-2xs p-10 rounded-2xl  font-bold flex justify-center items-center mx-auto text-center ${category === item.value ? "btn bg-[#233F49] text-white" : "btn btn-outline"}`}
                   >
                     {item.lable}
                   </button>
@@ -221,24 +230,50 @@ function Apibook() {
                 alt={book.title}
                 width="200x"
                 height="200px"
+                className="rounded-xl drop-shadow-xl"
               />
               <p className="w-40 line-clamp-1"> {book.title}</p>
             </Link>
           ))}
         </div>
       )}
-      <div className="join flex justify-center items-center mb-5 max-w-50 mx-auto relative bottom-0 mt-20">
+ 
+      <div className="join flex justify-center items-center mb-5 max-w-50 mx-auto relative bottom-0 mt-20 bg-[#233F49]">
         {pageNumber.map((btn) => {
           return (
             <button
               key={btn}
               onClick={() => setCurrentPage(btn)}
-              className={`join-item btn ${btn === currentPage && "btn-active"} p-2 md:p-5`}
+              className={`join-item btn ${btn === currentPage && "btn-active"} p-2 md:p-5 `}
             >
               {btn}
             </button>
           );
         })}
+
+        {/* <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious href="#" />
+            </PaginationItem>
+            <PaginationItem>
+              {pageNumber.map((btn) => {
+                return (
+                  <PaginationLink key={btn} onClick={() => setCurrentPage(btn)}>
+                    {btn}
+                  </PaginationLink>
+                );
+              })}
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext href="#" />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination> */}
       </div>
     </section>
   );
