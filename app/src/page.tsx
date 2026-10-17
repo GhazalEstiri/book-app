@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 // import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 // import Image from "next/image"
-import { Search } from "lucide-react";
+import type { AppDispatch, Rootstate } from "@/lib/store";
+import { Search, Heart } from "lucide-react";
+import { add } from "@/features/auth/authSlice";
 import {
   Carousel,
   CarouselContent,
@@ -12,6 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Pagination,
   PaginationContent,
@@ -57,7 +60,7 @@ function Apibook() {
       // limit: number,
       {
         try {
-          const offset = (currentPage - 1) * limit;
+          const offset = currentPage * limit;
           setLoading(true);
           const query = category === "all" ? "book" : `subject:${category}`;
           const res = await fetch(
@@ -80,6 +83,18 @@ function Apibook() {
     .filter((book) => book.cover_i)
     .filter((book) => book.title.toLowerCase().includes(search.toLowerCase()));
 
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleFavorite = (book: Book) => {
+    dispatch(
+      add({
+        title: book.title,
+        key: book.key,
+        cover_i: book.cover_i,
+      }),
+    );
+  };
+  const favorites = useSelector((state: Rootstate) => state.favorite.book);
   return (
     <section className="pt-30 pr-20 pl-20">
       <div className="">
@@ -114,7 +129,7 @@ function Apibook() {
         </section>
 
         <div>
-          <Carousel className="mx-auto w-full max-w-2xl mt-20">
+          <Carousel className="mx-auto w-full max-w-120 mt-20">
             <CarouselContent>
               {categories.map((item) => (
                 <CarouselItem
@@ -127,7 +142,7 @@ function Apibook() {
                       setCategory(item.value);
                       setCurrentPage(1);
                     }}
-                    className={`w-20 border-2 shadow-2xs p-10 rounded-2xl  font-bold flex justify-center items-center mx-auto text-center ${category === item.value ? "btn bg-[#233F49] text-white" : "btn btn-outline"}`}
+                    className={`cursor-pointer w-20 border-2 shadow-2xs p-10 rounded-xl  font-bold flex justify-center items-center mx-auto text-center ${category === item.value ? "btn bg-[#233F49] text-white" : "btn btn-outline"}`}
                   >
                     {item.lable}
                   </button>
@@ -218,33 +233,49 @@ function Apibook() {
       ) : data.length === 0 ? (
         <p className="text-center">کتابی پیدا نشد.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 place-items-center">
-          {filteredBooks.map((book) => (
-            <Link
-              key={book.key}
-              className="flex justify-center items-center flex-col w-70 h-90 gap-5 text-center border-2 p-7 rounded-2xl mt-20 mx-auto hover-3d shadow-sm transition-all duration-300 ease-out hover:-translate-y-3 hover:shadow-xl hover:border-[#233F49]/40"
-              href={`/books/${book.key.split("/").pop()}`}
-            >
-              <img
-                src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
-                alt={book.title}
-                width="200x"
-                height="200px"
-                className="rounded-xl drop-shadow-xl"
-              />
-              <p className="w-40 line-clamp-1"> {book.title}</p>
-            </Link>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 place-items-center mt-20">
+          {filteredBooks.map((book) => {
+            const isFavorite = favorites.some((item) => item.key === book.key);
+            return (
+              <div
+                key={book.key}
+                className="flex justify-center items-center flex-col w-65 h-90 gap-5 text-center border-2 p-7 rounded-2xl mt-5 mx-auto hover-3d shadow-sm transition-all duration-300 ease-out hover:-translate-y-3 hover:shadow-xl hover:border-[#233F49]/40"
+              >
+                <Link
+                  key={book.key}
+                  className="flex gap-10 flex-col h-full"
+                  href={`/books/${book.key.split("/").pop()}`}
+                >
+                  <img
+                    src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
+                    alt={book.title}
+                    width="200x"
+                    height="200px"
+                    className="rounded-xl drop-shadow-xl"
+                  />
+                    </Link>
+                  <div className="flex justify-between">
+                    <p className="w-40 line-clamp-1"> {book.title}</p>
+                    <button
+                      onClick={() => handleFavorite(book)}
+                      
+                    >
+                      <Heart fill={isFavorite? "#CA2A30":"none"} color={isFavorite?"#CA2A30":"currentColor"} />
+                    </button>
+                  </div>
+              </div>
+            );
+          })}
         </div>
       )}
- 
+
       <div className="join flex justify-center items-center mb-5 max-w-50 mx-auto relative bottom-0 mt-20 bg-[#233F49]">
         {pageNumber.map((btn) => {
           return (
             <button
               key={btn}
               onClick={() => setCurrentPage(btn)}
-              className={`join-item btn ${btn === currentPage && "btn-active"} p-2 md:p-5 `}
+              className={`cursor-pointer  join-item btn ${btn === currentPage && "btn-active"} p-2 md:p-5 `}
             >
               {btn}
             </button>
