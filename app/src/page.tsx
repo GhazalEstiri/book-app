@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 // import Image from "next/image"
 import type { AppDispatch, Rootstate } from "@/lib/store";
-import { Search, Heart } from "lucide-react";
+import { Search, Heart, ShoppingBasket } from "lucide-react";
 import { add } from "@/features/auth/authSlice";
+import { addBook } from "@/features/cart/cartSlice";
 import {
   Carousel,
   CarouselContent,
@@ -96,7 +97,20 @@ function Apibook() {
       }),
     );
   };
+  const handleShop = (book: Book) => {
+    dispatch(
+      addBook({
+        title: book.title,
+        key: book.key,
+        cover_i: book.cover_i,
+        subject: book.subject,
+        price: price,
+      }),
+    );
+  };
   const favorites = useSelector((state: Rootstate) => state.favorite.book);
+  const cart = useSelector((state: Rootstate) => state.add.cart);
+
   return (
     <section className="pt-30 pr-20 pl-20">
       <div className="">
@@ -158,7 +172,7 @@ function Apibook() {
         </div>
       </div>
       {loading ? (
-        <div className="grid grid-cols-4 gap-5 place-items-center mt-30">
+        <div className="grid grid-cols-5 gap-5 place-items-center mt-30">
           <div className="flex w-52 flex-col gap-4 ">
             <div className="skeleton h-32 w-full"></div>
             <div className="skeleton h-4 w-28"></div>
@@ -231,6 +245,24 @@ function Apibook() {
             <div className="skeleton h-4 w-full"></div>
             <div className="skeleton h-4 w-full"></div>
           </div>
+           <div className="flex w-52 flex-col gap-4 ">
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
+          </div>
+          <div className="flex w-52 flex-col gap-4">
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
+          </div>
+          <div className="flex w-52 flex-col gap-4">
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
+          </div>
         </div>
       ) : data.length === 0 ? (
         <p className="text-center">کتابی پیدا نشد.</p>
@@ -238,6 +270,7 @@ function Apibook() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 place-items-center mt-20">
           {filteredBooks.map((book) => {
             const isFavorite = favorites.some((item) => item.key === book.key);
+            const isShopped = cart.some((item) => item.key === book.key);
             return (
               <div
                 key={book.key}
@@ -259,13 +292,19 @@ function Apibook() {
                 <div className="flex justify-between flex-col">
                   <p>{price}$</p>
                   <div className="flex flex-row">
-                  <p className="w-40 line-clamp-1"> {book.title}</p>
-                  <button onClick={() => handleFavorite(book)}>
-                    <Heart
-                      fill={isFavorite ? "#CA2A30" : "none"}
-                      color={isFavorite ? "#CA2A30" : "currentColor"}
-                    />
-                  </button>
+                    <p className="w-40 line-clamp-1"> {book.title}</p>
+                    <button onClick={() => handleFavorite(book)}>
+                      <Heart
+                        fill={isFavorite ? "#CA2A30" : "none"}
+                        color={isFavorite ? "#CA2A30" : "currentColor"}
+                      />
+                    </button>
+                    <button onClick={() => handleShop(book)}>
+                      <ShoppingBasket
+                        fill={isShopped ? "#CA2A30" : "none"}
+                        color={isShopped ? "#CA2A30" : "currentColor"}
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
