@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type{ PayloadAction } from "@reduxjs/toolkit";
 type User = {
   name: string;
   email: string;
@@ -44,9 +45,12 @@ export const favorite = createSlice({
         state.book.push(action.payload);
       }
     },
+    localBook:(state,action:PayloadAction<Book[]>)=>{
+      state.book===action.payload;
+    }
   },
 });
 export const { login, logout } = authSlice.actions;
 export const authReducer = authSlice.reducer;
-export const { add } = favorite.actions;
+export const { add,localBook } = favorite.actions;
 export const favoriteReducer = favorite.reducer;

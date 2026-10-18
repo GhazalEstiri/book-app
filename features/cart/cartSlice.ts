@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 type Book = {
   title: string;
   key: string;
@@ -23,7 +24,10 @@ export const shoppingCart = createSlice({
         state.cart.push(action.payload);
       }
     },
+    localCart:(state,action:PayloadAction<Cart[]> )=>{
+      state.cart===action.payload;
+    }
   },
 });
-export const { addBook } = shoppingCart.actions;
+export const { addBook,localCart } = shoppingCart.actions;
 export const addReducer = shoppingCart.reducer
