@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Book } from "lucide-react";
 type User = {
   name: string;
   email: string;
@@ -19,7 +18,6 @@ type Favorite = {
 const initialState: AuthState = {
   user: null,
 };
-
 const initialFavorite: Favorite = {
   book: [],
 };
@@ -49,6 +47,6 @@ export const favorite = createSlice({
   },
 });
 export const { login, logout } = authSlice.actions;
-export const authReducer  = authSlice.reducer;
+export const authReducer = authSlice.reducer;
 export const { add } = favorite.actions;
 export const favoriteReducer = favorite.reducer;

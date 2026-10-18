@@ -31,11 +31,13 @@ function Apibook() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const pages = 10;
+  const price = 100;
   type Book = {
     title: string;
     key: string;
     cover_i?: number;
     subject?: string[];
+    price: number;
   };
   // type Image = {
   //   key: string;
@@ -253,16 +255,19 @@ function Apibook() {
                     height="200px"
                     className="rounded-xl drop-shadow-xl"
                   />
-                    </Link>
-                  <div className="flex justify-between">
-                    <p className="w-40 line-clamp-1"> {book.title}</p>
-                    <button
-                      onClick={() => handleFavorite(book)}
-                      
-                    >
-                      <Heart fill={isFavorite? "#CA2A30":"none"} color={isFavorite?"#CA2A30":"currentColor"} />
-                    </button>
+                </Link>
+                <div className="flex justify-between flex-col">
+                  <p>{price}$</p>
+                  <div className="flex flex-row">
+                  <p className="w-40 line-clamp-1"> {book.title}</p>
+                  <button onClick={() => handleFavorite(book)}>
+                    <Heart
+                      fill={isFavorite ? "#CA2A30" : "none"}
+                      color={isFavorite ? "#CA2A30" : "currentColor"}
+                    />
+                  </button>
                   </div>
+                </div>
               </div>
             );
           })}

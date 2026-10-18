@@ -23,7 +23,7 @@ type Book = {
     | string
     | {
         value: string;
-      };
+      }|null;
   created: {
     value: string;
   };
@@ -66,67 +66,76 @@ export default function DetailBook({ bookTitle }: Props) {
         key={books?.key}
         className="flex flex-1 flex-col mx-auto justify-center items-center w-full pt-20 pl-20 pr-20 gap-5"
       >
-        <div className="flex flex-1 mx-auto gap-10 items-center w-full bg-[#F2F2F2] p-5 rounded-2xl mx-auto">
-          <img
-            src={`https://covers.openlibrary.org/b/id/${books?.covers[0]}-L.jpg`}
-            alt={books?.title}
-            width="220px"
-            height="220px"
-            className="rounded-2xl"
-          />
-          <div className="flex flex-col  gap-3 h-auto justify-center">
-            <div className="bg-[#9898985c] w-fit px-4 py-2 rounded-2xl flex gap-2 flex-row">
-              <p>
-                <BookOpenText />
-              </p>
-              <p>Book</p>
-            </div>
-            <div className="flex gap-5 flex-col">
-              <p className="font-extrabold text-4xl  flex flex-row items-center gap-2">
-                {books?.title}
-              </p>
-              <p className="font-bold  text-[#242222] flex flex-row items-center gap-4">
-                <User size={40} className="rounded-full bg-[#9898985c] p-2" />{" "}
-                {author?.name}
-              </p>
-            </div>
-            <div className="flex flex-1 flex-col rounded-2xl gap-1">
-              <div className="flex flex-row items-center gap-5">
-                <p className="bg-[#9898985c] w-fit p-2 rounded-full flex gap-2 flex-row text-xl">
-                  <CalendarDays />
+        <div className="flex flex-1 mx-auto gap-10 items-center w-full bg-[#F2F2F2] p-5 rounded-2xl justify-between">
+          <div className="flex flex-row gap-10 items-center">
+            <img
+              src={`https://covers.openlibrary.org/b/id/${books?.covers[0]}-L.jpg`}
+              alt={books?.title}
+              width="220px"
+              height="220px"
+              className="rounded-2xl"
+            />
+            <div className="flex flex-col  gap-3 h-auto justify-center">
+              <div className="bg-[#9898985c] w-fit px-4 py-2 rounded-2xl flex gap-2 flex-row">
+                <p>
+                  <BookOpenText />
                 </p>
-                <div>
-                  <h1 className="font-bold ">created</h1>
-                  <p>{books?.created.value}</p>
-                </div>
+                <p>Book</p>
               </div>
-              <div>
-                {books?.subject_people ? (
-                  <div className="flex flex-row items-center gap-5">
-                    <p className="bg-[#9898985c] w-fit p-2 rounded-full  flex gap-2 flex-row text-xl">
-                      <Users />
-                    </p>
-                    <div>
-                      <h1 className="font-bold">subject people</h1>
-                      <p>{books?.subject_people}</p>
-                    </div>
+              <div className="flex gap-5 flex-col">
+                <p className="font-extrabold text-4xl  flex flex-row items-center gap-2">
+                  {books?.title}
+                </p>
+                <p className="font-bold  text-[#242222] flex flex-row items-center gap-4">
+                  <User size={40} className="rounded-full bg-[#9898985c] p-2" />{" "}
+                  {author?.name}
+                </p>
+              </div>
+              <div className="flex flex-1 flex-col rounded-2xl gap-1">
+                <div className="flex flex-row items-center gap-5">
+                  <p className="bg-[#9898985c] w-fit p-2 rounded-full flex gap-2 flex-row text-xl">
+                    <CalendarDays />
+                  </p>
+                  <div>
+                    <h1 className="font-bold ">created</h1>
+                    <p>{books?.created.value}</p>
                   </div>
-                ) : (
-                  <p></p>
-                )}
-              </div>
-
-              <div className="flex flex-row items-center gap-5">
-                <p className="bg-[#9898985c] w-fit p-2 rounded-full  flex gap-2 flex-row text-xl">
-                  <LoaderCircle />
-                </p>
+                </div>
                 <div>
-                  <h1 className="font-bold text-xl">latest revision</h1>
-                  <p>{books?.latest_revision}</p>
+                  {books?.subject_people ? (
+                    <div className="flex flex-row items-center gap-5">
+                      <p className="bg-[#9898985c] w-fit p-2 rounded-full  flex gap-2 flex-row text-xl">
+                        <Users />
+                      </p>
+                      <div>
+                        <h1 className="font-bold">subject people</h1>
+                        <p>{books?.subject_people}</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <p></p>
+                  )}
+                </div>
+
+                <div className="flex flex-row items-center gap-5">
+                  <p className="bg-[#9898985c] w-fit p-2 rounded-full  flex gap-2 flex-row text-xl">
+                    <LoaderCircle />
+                  </p>
+                  <div>
+                    <h1 className="font-bold text-xl">latest revision</h1>
+                    <p>{books?.latest_revision}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          {/* <img
+            src={`https://covers.openlibrary.org/b/id/${books?.covers[2]}-L.jpg`}
+            alt={books?.title}
+            width="220px"
+            height="220px"
+            className="rounded-2xl"
+          /> */}
         </div>
         <div className="flex flex-1 flex-row mx-auto justify-center w-full gap-5">
           <div className="flex flex-1 bg-[#F2F2F2] p-5 rounded-2xl flex-col gap-5">
@@ -139,7 +148,7 @@ export default function DetailBook({ bookTitle }: Props) {
             <p className="h-50 overflow-y-auto">
               {typeof books?.description === "string"
                 ? books.description
-                : books?.description.value}
+                : books?.description?.value}
             </p>
           </div>
           <div className="flex flex-1  bg-[#F2F2F2] p-5 rounded-2xl flex-col gap-8 ">
@@ -178,7 +187,7 @@ export default function DetailBook({ bookTitle }: Props) {
                 </p>
                 <div>
                   <h1 className="font-bold text-xl"> 30 days return</h1>
-                  <p >Hassle free returns</p>
+                  <p>Hassle free returns</p>
                 </div>
               </div>
             </div>
