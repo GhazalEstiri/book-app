@@ -47,10 +47,13 @@ export const favorite = createSlice({
     },
     localBook:(state,action:PayloadAction<Book[]>)=>{
       state.book===action.payload;
+    },
+    deleteFavorite:(state,action:PayloadAction<{key:string}>)=>{
+      state.book=state.book.filter((book)=>book.key!==action.payload.key)
     }
   },
 });
 export const { login, logout } = authSlice.actions;
 export const authReducer = authSlice.reducer;
-export const { add,localBook } = favorite.actions;
+export const { add,localBook,deleteFavorite } = favorite.actions;
 export const favoriteReducer = favorite.reducer;
