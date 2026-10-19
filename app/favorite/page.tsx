@@ -19,7 +19,7 @@ export default function favorite() {
     )
   }
   return (
-    <section className="">
+    <section className="bg-background h-screen">
       <div className="relative top-0">
       <Navbar />
       </div>

@@ -21,7 +21,7 @@ export default function Shopping() {
     );
   }
   return (
-    <section>
+    <section className="h-screen">
       <div className="relative top-0">
         <Navbar />
       </div>

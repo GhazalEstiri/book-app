@@ -23,7 +23,8 @@ type Book = {
     | string
     | {
         value: string;
-      }|null;
+      }
+    | null;
   created: {
     value: string;
   };
@@ -32,12 +33,12 @@ type Book = {
   authors: {
     author: { key: string };
   }[];
-  price:number;
+  price: number;
 };
 type Author = {
   name: string;
 };
-const price=100
+const price = 100;
 export default function DetailBook({ bookTitle }: Props) {
   const [books, setBook] = useState<Book | null>(null);
   const [author, setAuthor] = useState<Author | null>(null);
@@ -62,14 +63,14 @@ export default function DetailBook({ bookTitle }: Props) {
     // getAuthors();
   }, [bookTitle]);
   return (
-    <div>
+    <div className="h-screen">
       <Navbar />
       <div
         key={books?.key}
         className="flex flex-1 flex-col mx-auto justify-center items-center w-full pt-20 pl-20 pr-20 gap-5"
       >
         <div className="flex flex-1 mx-auto gap-10 items-center w-full bg-[#F2F2F2] p-5 rounded-2xl justify-between">
-          <div className="flex flex-row gap-10 items-center">
+          <div className="flex flex-row gap-10 items-center w-1/2">
             <img
               src={`https://covers.openlibrary.org/b/id/${books?.covers[0]}-L.jpg`}
               alt={books?.title}
@@ -77,7 +78,7 @@ export default function DetailBook({ bookTitle }: Props) {
               height="220px"
               className="rounded-2xl"
             />
-            <div className="flex flex-col  gap-3 h-auto justify-center">
+            <div className="flex flex-1 flex-col  gap-3 h-auto justify-center border-r-2">
               <div className="bg-[#9898985c] w-fit px-4 py-2 rounded-2xl flex gap-2 flex-row">
                 <p>
                   <BookOpenText />
@@ -131,30 +132,16 @@ export default function DetailBook({ bookTitle }: Props) {
               </div>
             </div>
           </div>
-        </div>
-        <div className="flex flex-1 flex-row mx-auto justify-center w-full gap-5">
-          <div className="flex flex-1 bg-[#F2F2F2] p-5 rounded-2xl flex-col gap-5">
-            <div className="flex flex-row gap-4 items-center">
-              <p className="">
-                <BookOpenText size={40} />
-              </p>
-              <h1 className="font-bold text-3xl">Description</h1>
-            </div>
-            <p className="h-50 overflow-y-auto">
-              {typeof books?.description === "string"
-                ? books.description
-                : books?.description?.value}
-            </p>
-          </div>
-          <div className="flex flex-1  bg-[#F2F2F2] p-5 rounded-2xl flex-col gap-8 ">
-            <div className="flex flex-row gap-4 items-center">
+
+          <div className="flex flex-1  bg-[#F2F2F2] p-5 rounded-2xl flex-col gap-8 w-1/2 ">
+            <div className="flex flex-row gap-4 items-center mx-auto">
               <p className="">
                 <Banknote size={40} />
               </p>
               <h1 className="font-bold text-3xl">Purchase Information</h1>
             </div>
-            <p className="font-bold text-xl">Price: {price}$</p>
-            <button className="bg-[#9898985c] w-full px-4 py-2 rounded-2xl cursor-pointer hover:bg-[#9b9b9b]">
+            <p className="font-bold text-xl mx-auto">Price: {price}$</p>
+            <button className="bg-[#9898985c] w-[70%] px-4 py-2 rounded-2xl cursor-pointer hover:bg-[#9b9b9b]  mx-auto ">
               Purchase
             </button>
             <div className="flex flex-row justify-center gap-10">
@@ -186,6 +173,21 @@ export default function DetailBook({ bookTitle }: Props) {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="flex flex-1 flex-row mx-auto justify-center w-full gap-5">
+          <div className="flex flex-1 bg-[#F2F2F2] p-5 rounded-2xl flex-col gap-5">
+            <div className="flex flex-row gap-4 items-center">
+              <p className="">
+                <BookOpenText size={40} />
+              </p>
+              <h1 className="font-bold text-3xl">Description</h1>
+            </div>
+            <p className="h-50 overflow-y-auto">
+              {typeof books?.description === "string"
+                ? books.description
+                : books?.description?.value}
+            </p>
           </div>
         </div>
       </div>

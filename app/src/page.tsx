@@ -25,6 +25,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { section } from "motion/react-client";
 function Apibook() {
   const [data, setData] = useState<Book[]>([]);
   const [search, setSearch] = useState("");
@@ -112,7 +113,7 @@ function Apibook() {
   const cart = useSelector((state: Rootstate) => state.add.cart);
 
   return (
-    <section className="pt-30 pr-20 pl-20">
+    <section className="pt-30 pr-20 pl-20 bg-background text-primary">
       <div className="">
         <section className="relative flex justify-center items-center mx-auto h-100 w-full flex-col gap-5">
           <img
@@ -120,24 +121,24 @@ function Apibook() {
             alt=""
             className="absolute w-full h-full object-center object-cover blur-[4px] rounded-2xl inset-0"
           />
-          <h1 className="flex justify-center items-center font-extrabold relative z-10 text-white text-3xl text-shadow-xl">
+          <h1 className="flex justify-center items-center font-extrabold relative z-10 text-secondary text-3xl text-shadow-xl">
             Discover Your Next Favorite Book
           </h1>
-          <p className="flex justify-center items-center relative z-10 font-bold text-white w-100 text-center text-lg text-shadow-xl">
+          <p className="flex justify-center items-center relative z-10 font-bold text-secondary w-100 text-center text-lg text-shadow-xl">
             Step into a world of stories, imagination, and endless
             possibilities. Explore fascinating books, discover new genres, and
             find the perfect story for your next adventure.
           </p>
-          <p className="flex justify-center items-center font-extrabold text-2xl relative z-10 text-white w-100 text-center text-shadow-xl">
+          <p className="flex justify-center items-center font-extrabold text-2xl relative z-10 text-secondary w-100 text-center text-shadow-xl">
             Every book opens a new world.
           </p>
-          <div className="relative z-10 max-w-550 border-2 border-[#1d436286] rounded-2xl  px-5 flex flex-row gap-6  bg-white justify-center items-center ">
-            <Search className="text-[#1d436286]" />
+          <div className="relative z-10 w-fit px-20 border-2 border-secondary-foreground rounded-xl  flex flex-row gap-6 text-secondary  items-center bg-background justify-between">
+            <Search className="text-secondary-foreground" />
 
             <input
               type="text"
               placeholder="What would you like to read today?"
-              className="input outline-none border-none flex justify-center items-center mx-auto relative z-10 "
+              className="input outline-none border-none flex justify-baseline w-full items-center mx-auto relative z-10 placeholder:text-secondary-foreground bg-background "
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -145,7 +146,7 @@ function Apibook() {
         </section>
 
         <div>
-          <Carousel className="mx-auto w-full max-w-120 mt-20">
+          <Carousel className="mx-auto w-full max-w-170 mt-20">
             <CarouselContent>
               {categories.map((item) => (
                 <CarouselItem
@@ -158,7 +159,7 @@ function Apibook() {
                       setCategory(item.value);
                       setCurrentPage(1);
                     }}
-                    className={`cursor-pointer w-20 border-2 shadow-2xs p-10 rounded-xl  font-bold flex justify-center items-center mx-auto text-center ${category === item.value ? "btn bg-[#233F49] text-white" : "btn btn-outline"}`}
+                    className={`cursor-pointer w-20 border-2 border-secondary-foreground shadow-2xs px-15 py-6 rounded-lg text-secondary-foreground font-bold flex justify-center items-center mx-auto text-center ${category === item.value ? "btn bg-secondary-foreground text-secondary" : "btn btn-outline "}`}
                   >
                     {item.lable}
                   </button>
@@ -245,7 +246,7 @@ function Apibook() {
             <div className="skeleton h-4 w-full"></div>
             <div className="skeleton h-4 w-full"></div>
           </div>
-           <div className="flex w-52 flex-col gap-4 ">
+          <div className="flex w-52 flex-col gap-4 ">
             <div className="skeleton h-32 w-full"></div>
             <div className="skeleton h-4 w-28"></div>
             <div className="skeleton h-4 w-full"></div>
@@ -265,61 +266,69 @@ function Apibook() {
           </div>
         </div>
       ) : data.length === 0 ? (
-        <p className="text-center">کتابی پیدا نشد.</p>
+        <p className="text-center mt-20 font-bold text-4xl">Nothing found</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 place-items-center mt-20">
-          {filteredBooks.map((book) => {
-            const isFavorite = favorites.some((item) => item.key === book.key);
-            const isShopped = cart.some((item) => item.key === book.key);
-            return (
-              <div
-                key={book.key}
-                className="flex justify-center items-center flex-col w-65 h-90 gap-5 text-center border-2 p-7 rounded-2xl mt-5 mx-auto hover-3d shadow-sm transition-all duration-300 ease-out hover:-translate-y-3 hover:shadow-xl hover:border-[#233F49]/40"
-              >
-                <Link
+        <section className="flex flex-col">
+          <p className="font-bold text-4xl ml-10">Features books</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 place-items-center">
+            {filteredBooks.map((book) => {
+              const isFavorite = favorites.some(
+                (item) => item.key === book.key,
+              );
+              const isShopped = cart.some((item) => item.key === book.key);
+              return (
+                <div
                   key={book.key}
-                  className="flex gap-10 flex-col h-full"
-                  href={`/books/${book.key.split("/").pop()}`}
+                  className="flex justify-center items-center flex-col w-65 h-90 gap-5 text-center border-2 p-7 rounded-xl mt-5 mx-auto hover-3d shadow-sm transition-all duration-300 ease-out hover:-translate-y-3 hover:shadow-xl hover:border-secondary-foreground/40"
                 >
-                  <img
-                    src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
-                    alt={book.title}
-                    width="200x"
-                    height="200px"
-                    className="rounded-xl drop-shadow-xl"
-                  />
-                </Link>
-                <div className="flex justify-between flex-col">
-                  <p>{price}$</p>
-                  <div className="flex flex-row">
-                    <p className="w-40 line-clamp-1"> {book.title}</p>
-                    <button onClick={() => handleFavorite(book)}>
-                      <Heart
-                        fill={isFavorite ? "#CA2A30" : "none"}
-                        color={isFavorite ? "#CA2A30" : "currentColor"}
-                      />
-                    </button>
-                    <button onClick={() => handleShop(book)}>
-                      <ShoppingBasket
-                        fill={isShopped ? "#CA2A30" : "none"}
-                        color={isShopped ? "#CA2A30" : "currentColor"}
-                      />
-                    </button>
+                  <Link
+                    key={book.key}
+                    className="flex gap-10 flex-col h-full"
+                    href={`/books/${book.key.split("/").pop()}`}
+                  >
+                    <img
+                      src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
+                      alt={book.title}
+                      width="200x"
+                      height="200px"
+                      className="rounded-xl drop-shadow-xl"
+                    />
+                  </Link>
+                  <div className="flex justify-between flex-col gap-10">
+                    <div className="flex flex-col gap-5">
+                      <p className="w-40 line-clamp-1"> {book.title}</p>
+                      <div className="flex flex-row justify-between ">
+                        <button onClick={() => handleFavorite(book)}>
+                          <Heart
+                            fill={isFavorite ? "#CA2A30" : "none"}
+                            color={isFavorite ? "#CA2A30" : "currentColor"}
+                          />
+                        </button>
+                        <p>{price}$</p>
+
+                        <button onClick={() => handleShop(book)}>
+                          <ShoppingBasket
+                            fill={isShopped ? "#CA2A30" : "none"}
+                            color={isShopped ? "#CA2A30" : "currentColor"}
+                          />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </section>
       )}
 
-      <div className="join flex justify-center items-center mb-5 max-w-50 mx-auto relative bottom-0 mt-20 bg-[#233F49]">
+      <div className="join flex justify-center items-center  max-w-50 mx-auto relative bottom-0 mt-20 bg-[#233F49] ">
         {pageNumber.map((btn) => {
           return (
             <button
               key={btn}
               onClick={() => setCurrentPage(btn)}
-              className={`cursor-pointer  join-item btn ${btn === currentPage && "btn-active"} p-2 md:p-5 `}
+              className={`cursor-pointer bg-background join-item btn ${btn === currentPage && "btn-active"} p-2 md:p-5 `}
             >
               {btn}
             </button>
