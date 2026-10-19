@@ -12,6 +12,7 @@ export default function Shopping() {
   const cart = useSelector((state: Rootstate) => state.add.cart);
   const dispatch = useDispatch<AppDispatch>();
   const price = 100;
+  const totalPrice = cart.length*100
   function handleDelete(key:string) {
     dispatch(
       deleteBook({
@@ -24,7 +25,7 @@ export default function Shopping() {
       <div className="relative top-0">
         <Navbar />
       </div>
-      <div className="flex flex-col ">
+      <div className="flex flex-col pt-20 ">
         {cart.length === 0 ? (
           <p className="mt-20 mx-auto flex justify-center items-center">
             سبد خرید شما خالی است.
@@ -60,6 +61,7 @@ export default function Shopping() {
                 </button>
               </div>
             ))}
+            <p>{totalPrice}</p>
           </div>
         )}
       </div>

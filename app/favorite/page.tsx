@@ -10,6 +10,7 @@ import { Trash } from "lucide-react";
 export default function favorite() {
   const favorite = useSelector((state: Rootstate) => state.favorite.book);
   const dispatch=useDispatch<AppDispatch>();
+  const price = 100;
   function handleDelete(key:string) {
     dispatch(
       deleteFavorite({
@@ -22,26 +23,36 @@ export default function favorite() {
       <div className="relative top-0">
       <Navbar />
       </div>
-      <div className="grid grid-cols-4">
+      <div className="grid grid-cols-4 pt-20">
         {favorite.map((book) => {
           return (
-            <div
-              key={book.key}
-              className="flex justify-center items-center flex-col w-70 h-90 gap-5 text-center border-2 p-7 rounded-2xl mt-20 mx-auto hover-3d shadow-sm transition-all duration-300 ease-out hover:-translate-y-3 hover:shadow-xl hover:border-[#233F49]/40"
-              href={`/books/${book.key.split("/").pop()}`}
-            >
-              <img
-                src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
-                alt={book.title}
-                width="200x"
-                height="200px"
-                className="rounded-xl drop-shadow-xl"
-              />
-              <p className="w-40 line-clamp-1"> {book.title}</p>
+                <div
+                key={book.key}
+                className="flex justify-center items-center flex-col w-65 h-90 gap-5 text-center border-2 p-7 rounded-2xl mt-5 mx-auto hover-3d shadow-sm transition-all duration-300 ease-out hover:-translate-y-3 hover:shadow-xl hover:border-[#233F49]/40"
+              >
+                <Link
+                  key={book.key}
+                  className="flex gap-10 flex-col h-full"
+                  href={`/books/${book.key.split("/").pop()}`}
+                >
+                  <img
+                    src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
+                    alt={book.title}
+                    width="200x"
+                    height="200px"
+                    className="rounded-xl drop-shadow-xl"
+                  />
+                </Link>
+                <div className="flex justify-between flex-col">
+                  <p>{price}$</p>
+                  <div className="flex flex-row">
+                    <p className="w-40 line-clamp-1"> {book.title}</p>
+                  </div>
+                </div>
                 <button className="bg-blue-300 p-2 hover:bg-red-800" onClick={()=>handleDelete(book.key)}>
                   <Trash />
                 </button>
-            </div>
+              </div>
           );
         })}
       </div>
