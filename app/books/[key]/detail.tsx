@@ -89,7 +89,7 @@ export default function DetailBook({ bookTitle }: Props) {
                 <p className="font-extrabold text-4xl  flex flex-row items-center gap-2">
                   {books?.title}
                 </p>
-                <p className="font-bold  text-[#242222] flex flex-row items-center gap-4">
+                <p className="font-bold  text-secondary-foreground flex flex-row items-center gap-4">
                   <User size={40} className="rounded-full bg-[#9898985c] p-2" />{" "}
                   {author?.name}
                 </p>

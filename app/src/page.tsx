@@ -8,6 +8,7 @@ import type { AppDispatch, Rootstate } from "@/lib/store";
 import { Search, Heart, ShoppingBasket } from "lucide-react";
 import { add } from "@/features/auth/authSlice";
 import { addBook } from "@/features/cart/cartSlice";
+import { BookOpenText, ListSortDescending } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -121,24 +122,24 @@ function Apibook() {
             alt=""
             className="absolute w-full h-full object-center object-cover blur-[4px] rounded-2xl inset-0"
           />
-          <h1 className="flex justify-center items-center font-extrabold relative z-10 text-secondary text-3xl text-shadow-xl">
+          <h1 className="flex justify-center items-center font-extrabold relative z-10 text-white text-3xl text-shadow-xl">
             Discover Your Next Favorite Book
           </h1>
-          <p className="flex justify-center items-center relative z-10 font-bold text-secondary w-100 text-center text-lg text-shadow-xl">
+          <p className="flex justify-center items-center relative z-10 font-bold text-white w-100 text-center text-lg text-shadow-xl">
             Step into a world of stories, imagination, and endless
             possibilities. Explore fascinating books, discover new genres, and
             find the perfect story for your next adventure.
           </p>
-          <p className="flex justify-center items-center font-extrabold text-2xl relative z-10 text-secondary w-100 text-center text-shadow-xl">
+          <p className="flex justify-center items-center font-extrabold text-2xl relative z-10 text-white w-100 text-center text-shadow-xl">
             Every book opens a new world.
           </p>
-          <div className="relative z-10 w-fit px-20 border-2 border-secondary-foreground rounded-xl  flex flex-row gap-6 text-secondary  items-center bg-background justify-between">
-            <Search className="text-secondary-foreground" />
+          <div className="relative z-10 w-full max-w-100 py-1 px-4 border-2 border-secondary-foreground rounded-xl flex items-center gap-3 bg-background">
+            <Search className="text-secondary-foreground shrink-0" />
 
             <input
               type="text"
               placeholder="What would you like to read today?"
-              className="input outline-none border-none flex justify-baseline w-full items-center mx-auto relative z-10 placeholder:text-secondary-foreground bg-background "
+              className="input flex-1 min-w-0 outline-none border-none shadow-none bg-transparent"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -146,7 +147,13 @@ function Apibook() {
         </section>
 
         <div>
-          <Carousel className="mx-auto w-full max-w-170 mt-20">
+          <div className="flex flex-row items-center justify-center text-center mt-20">
+            <p className=" flex font-bold text-3xl w-100 ml-5 mb-10 items-center gap-5">
+              <ListSortDescending size={50} /> Categories
+            </p>
+            <div className="bg-secondary-foreground w-full h-[2px]"></div>
+          </div>
+          <Carousel className="mx-auto w-full max-w-220 mt-20">
             <CarouselContent>
               {categories.map((item) => (
                 <CarouselItem
@@ -159,7 +166,11 @@ function Apibook() {
                       setCategory(item.value);
                       setCurrentPage(1);
                     }}
-                    className={`cursor-pointer w-20 border-2 border-secondary-foreground shadow-2xs px-15 py-6 rounded-lg text-secondary-foreground font-bold flex justify-center items-center mx-auto text-center ${category === item.value ? "btn bg-secondary-foreground text-secondary" : "btn btn-outline "}`}
+                    className={`cursor-pointer w-20 border-2 border-secondary-foreground shadow-2xs px-15 py-5 rounded-lg font-bold flex justify-center items-center mx-auto text-center ${
+                      category === item.value
+                        ? "bg-secondary-foreground text-secondary"
+                        : "bg-background text-secondary-foreground"
+                    }`}
                   >
                     {item.lable}
                   </button>
@@ -268,8 +279,13 @@ function Apibook() {
       ) : data.length === 0 ? (
         <p className="text-center mt-20 font-bold text-4xl">Nothing found</p>
       ) : (
-        <section className="flex flex-col">
-          <p className="font-bold text-4xl ml-10">Features books</p>
+        <section className="flex flex-col mt-20">
+          <div className="flex flex-row items-center justify-center text-center">
+            <p className=" flex font-bold text-3xl w-100 ml-5 mb-10 items-center gap-5">
+              <BookOpenText size={50} /> Features books
+            </p>
+            <div className="bg-secondary-foreground w-full h-[2px]"></div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 place-items-center">
             {filteredBooks.map((book) => {
               const isFavorite = favorites.some(
@@ -308,8 +324,8 @@ function Apibook() {
 
                         <button onClick={() => handleShop(book)}>
                           <ShoppingBasket
-                            fill={isShopped ? "#CA2A30" : "none"}
-                            color={isShopped ? "#CA2A30" : "currentColor"}
+                            fill={isShopped ? "#344E41" : "none"}
+                            color={isShopped ? "#344E41" : "currentColor"}
                           />
                         </button>
                       </div>

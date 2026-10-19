@@ -3,7 +3,7 @@ import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 function Navbar() {
   return (
-    <div className="navbar bg-background shadow-sm fixed flex justify-between pr-20 pl-20 text-primary">
+    <div className="navbar bg-background shadow-sm fixed flex justify-between pr-20 pl-20 text-primary z-20">
       <div className="flex flex-row justify-center items-center">
         <img src="book.png" alt="" width="50px" height="50px" />
         <Link className="btn btn-ghost text-xl text-primary" href="/">

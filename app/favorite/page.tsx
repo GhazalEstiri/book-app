@@ -43,15 +43,18 @@ export default function favorite() {
                     className="rounded-xl drop-shadow-xl"
                   />
                 </Link>
-                <div className="flex justify-between flex-col">
-                  <p>{price}$</p>
-                  <div className="flex flex-row">
+                <div className="flex justify-between flex-col gap-5">
                     <p className="w-40 line-clamp-1"> {book.title}</p>
+                    <div className="flex flex-row justify-between">
+                      <p>{price}$</p>
+                      <button
+                        className="text-secondary-foreground hover:text-red-800"
+                        onClick={() => handleDelete(book.key)}
+                      >
+                        <Trash />
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <button className="bg-blue-300 p-2 hover:bg-red-800" onClick={()=>handleDelete(book.key)}>
-                  <Trash />
-                </button>
               </div>
           );
         })}
