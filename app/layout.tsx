@@ -14,9 +14,9 @@ export default function RootLayout({
   return (
     <html lang="fa" className={cn("font-sans", inter.variable)}>
       <body>
-        <Themeprovider>
-          <StoreProvider>{children}</StoreProvider>
-        </Themeprovider>
+        <StoreProvider>
+          <Themeprovider>{children}</Themeprovider>
+        </StoreProvider>
       </body>
     </html>
   );

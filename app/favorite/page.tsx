@@ -6,7 +6,7 @@ import { Rootstate } from "@/lib/store";
 import { AppDispatch } from "@/lib/store";
 import { deleteFavorite } from "@/features/auth/authSlice";
 import Link from "next/link";
-import { Trash } from "lucide-react";
+import { Heart, Trash } from "lucide-react";
 export default function favorite() {
   const favorite = useSelector((state: Rootstate) => state.favorite.book);
   const dispatch=useDispatch<AppDispatch>();
@@ -23,7 +23,13 @@ export default function favorite() {
       <div className="relative top-0">
       <Navbar />
       </div>
-      <div className="grid grid-cols-4 pt-20">
+       <div className="flex flex-row items-center justify-center text-center  pt-25 p-5">
+            <p className=" flex font-bold text-3xl w-100 ml-5 mb-10 items-center gap-5">
+              <Heart size={50} /> Features books
+            </p>
+            <div className="bg-secondary-foreground w-full h-[2px]"></div>
+          </div>
+      <div className="grid grid-cols-4">
         {favorite.map((book) => {
           return (
                 <div

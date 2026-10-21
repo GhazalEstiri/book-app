@@ -153,7 +153,7 @@ function Apibook() {
             </p>
             <div className="bg-secondary-foreground w-full h-[2px]"></div>
           </div>
-          <Carousel className="mx-auto w-full max-w-220 mt-20">
+          <Carousel className="mx-auto w-full max-w-220 mt-10">
             <CarouselContent>
               {categories.map((item) => (
                 <CarouselItem
@@ -184,7 +184,7 @@ function Apibook() {
         </div>
       </div>
       {loading ? (
-        <div className="grid grid-cols-5 gap-5 place-items-center mt-30">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 place-items-center mt-30">
           <div className="flex w-52 flex-col gap-4 ">
             <div className="skeleton h-32 w-full"></div>
             <div className="skeleton h-4 w-28"></div>
@@ -279,14 +279,14 @@ function Apibook() {
       ) : data.length === 0 ? (
         <p className="text-center mt-20 font-bold text-4xl">Nothing found</p>
       ) : (
-        <section className="flex flex-col mt-20">
+        <section className="flex flex-col mt-10">
           <div className="flex flex-row items-center justify-center text-center">
             <p className=" flex font-bold text-3xl w-100 ml-5 mb-10 items-center gap-5">
               <BookOpenText size={50} /> Features books
             </p>
             <div className="bg-secondary-foreground w-full h-[2px]"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 place-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 place-items-center">
             {filteredBooks.map((book) => {
               const isFavorite = favorites.some(
                 (item) => item.key === book.key,
@@ -344,7 +344,7 @@ function Apibook() {
             <button
               key={btn}
               onClick={() => setCurrentPage(btn)}
-              className={`cursor-pointer bg-background join-item btn ${btn === currentPage && "btn-active"} p-2 md:p-5 `}
+              className={`cursor-pointer bg-background join-item text-secondary-foreground btn ${btn === currentPage && "btn-active "} p-2 md:p-5 `}
             >
               {btn}
             </button>

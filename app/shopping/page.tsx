@@ -4,7 +4,7 @@ import Navbar from "../src/navbar";
 import { useDispatch, useSelector } from "react-redux";
 import type { Rootstate } from "@/lib/store";
 import Link from "next/link";
-import { Trash, ShoppingBasket } from "lucide-react";
+import { Trash, ShoppingBasket, ShoppingCartPlus } from "lucide-react";
 import { AppDispatch } from "@/lib/store";
 import { UseDispatch } from "react-redux";
 import { deleteBook } from "@/features/cart/cartSlice";
@@ -21,22 +21,28 @@ export default function Shopping() {
     );
   }
   return (
-    <section className="h-screen bg-background">
+    <section className="min-h-screen bg-background">
       <div className="relative top-0">
         <Navbar />
       </div>
-      <div className="flex flex-row pt-20 ">
+      <div className="flex flex-row items-center justify-center text-center  pt-25 pl-5 pr-5">
+        <p className=" flex font-bold text-3xl w-60 ml-5 mb-10 items-center gap-5">
+          <ShoppingCartPlus size={50} /> basket
+        </p>
+        <div className="bg-secondary-foreground w-full h-[2px]"></div>
+      </div>
+      <div className="flex flex-row ">
         <div className="w-3/4">
           {cart.length === 0 ? (
             <p className="mt-20 mx-auto flex justify-center items-center">
               سبد خرید شما خالی است.
             </p>
           ) : (
-            <div className=" grid grid-cols-1 md:grid-cols-3 gap-5 ">
+            <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 ">
               {cart.map((book) => (
                 <div
                   key={book.key}
-                  className="flex justify-center items-center flex-col w-70 h-80 gap-5 text-center border-2 p-7 rounded-2xl mt-5 mx-auto hover-3d shadow-sm transition-all duration-300 ease-out hover:-translate-y-3 hover:shadow-xl hover:border-[#233F49]/40"
+                  className="flex justify-center items-center flex-col w-50 lg:w-70 h-80 gap-5 text-center border-2 p-7 rounded-2xl mt-5 mx-auto hover-3d shadow-sm transition-all duration-300 ease-out hover:-translate-y-3 hover:shadow-xl hover:border-[#233F49]/40"
                 >
                   <Link
                     key={book.key}
