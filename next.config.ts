@@ -12,6 +12,16 @@ const nextConfig: NextConfig = {
       },
     },
   },
+
+   images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'covers.openlibrary.org',
+      
+      },
+    ],
+  },
 };
 
 export default nextConfig;

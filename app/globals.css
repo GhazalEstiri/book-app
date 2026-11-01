@@ -1,26 +1,182 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@plugin "daisyui";
+
+@custom-variant dark (&:where(.dark, .dark *));
+body {
+  background-color: #f4f3ee
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/PlayfairDisplay-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  --background: #f4f3ee;
+  --foreground: #344e41;
+
+  --card: #ffffff;
+  --card-foreground: #344e41;
+
+  --popover: #ffffff;
+  --popover-foreground: #344e41;
+
+  --primary: #344e41;
+  --primary-foreground: #dad7cd;
+
+  --secondary: #dad7cd;
+  --secondary-foreground: #344e41;
+
+  --muted: #e9e6dd;
+  --muted-foreground: #66766b;
+
+  --accent: #dad7cd;
+  --accent-foreground: #344e41;
+
+  --destructive: #b54747;
+  --border: #d4d3c9;
+  --input: #d4d3c9;
+  --ring: #6b8575;
+
+  --chart-1: #344e41;
+  --chart-2: #58816b;
+  --chart-3: #a3ad91;
+  --chart-4: #b7a98b;
+  --chart-5: #7c8c78;
+
+  --radius: 0.625rem;
+
+  --sidebar: #eeece4;
+  --sidebar-foreground: #344e41;
+  --sidebar-primary: #344e41;
+  --sidebar-primary-foreground: #dad7cd;
+  --sidebar-accent: #dad7cd;
+  --sidebar-accent-foreground: #344e41;
+  --sidebar-border: #d4d3c9;
+  --sidebar-ring: #6b8575;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: #202b25;
+  --foreground: #e8e6dd;
+
+  --card: #2b3930;
+  --card-foreground: #e8e6dd;
+
+  --popover: #2b3930;
+  --popover-foreground: #e8e6dd;
+
+  --primary: #a3b7a6;
+  --primary-foreground: #202b25;
+
+  --secondary: #3b4b40;
+  --secondary-foreground: #e8e6dd;
+
+  --muted: #35443a;
+  --muted-foreground: #c0c8bd;
+
+  --accent: #3b4b40;
+  --accent-foreground: #e8e6dd;
+
+  --destructive: #e08080;
+  --border: #46564a;
+  --input: #46564a;
+  --ring: #a3b7a6;
+
+  --chart-1: #a3b7a6;
+  --chart-2: #789a81;
+  --chart-3: #dad7cd;
+  --chart-4: #b7a98b;
+  --chart-5: #8da58e;
+
+  --sidebar: #26342b;
+  --sidebar-foreground: #e8e6dd;
+  --sidebar-primary: #a3b7a6;
+  --sidebar-primary-foreground: #202b25;
+  --sidebar-accent: #3b4b40;
+  --sidebar-accent-foreground: #e8e6dd;
+  --sidebar-border: #46564a;
+  --sidebar-ring: #a3b7a6;
 }
 
 @theme inline {
+  --font-heading: "Playfair Display", serif;
+  --font-sans: "Playfair Display", serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  html {
+    @apply font-sans;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Playfair Display", serif;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease;
+  }
 }
